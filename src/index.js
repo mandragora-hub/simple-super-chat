@@ -3,6 +3,7 @@ require('dotenv').config();
 const fs = require('fs');
 const express = require('express');
 const https = require('https');
+const http = require('http');
 const SocketIO = require('./socketIO');
 const helmet = require('helmet');
 const hpp = require('hpp');
@@ -29,6 +30,10 @@ app.use(hpp());
 app.use(express.json()); // for parsing application/json
 app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
+app.get('/', (req, res)=> {
+    res.status.send('Ready')
+})
+
 //Configure route
 require('./routes')(app);
 
@@ -36,13 +41,15 @@ const PORT = process.env.PORT;
 const HOSTNAME = process.env.HOSTNAME;
 
 // https credentials
-var credentials = {
-    key: fs.readFileSync(process.cwd() + '/fakesslcert/key.pem'),
-    cert: fs.readFileSync(process.cwd() + '/fakesslcert/cert.pem')
-};
-var httpsServer = https.createServer(credentials, app)
+// var credentials = {
+//     key: fs.readFileSync(process.cwd() + '/fakesslcert/key.pem'),
+//     cert: fs.readFileSync(process.cwd() + '/fakesslcert/cert.pem')
+// };
+
+// var httpsServer = https.createServer(credentials, app)
+var httpServer = http.createServer(app)
 /// Support of socketIO
-SocketIO(httpsServer)
+SocketIO(httpServer)
 
 httpsServer.listen(PORT, () => {
     console.log(`Restfull Api running at https://${HOSTNAME}:${PORT}`);
