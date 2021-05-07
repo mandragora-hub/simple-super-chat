@@ -51,6 +51,6 @@ var httpServer = http.createServer(app)
 /// Support of socketIO
 SocketIO(httpServer)
 
-httpsServer.listen(PORT, () => {
+httpServer.listen(PORT, () => {
     console.log(`Restfull Api running at https://${HOSTNAME}:${PORT}`);
 })
