@@ -1,6 +1,6 @@
 const express = require('express');
 
-const database = require('simple-chat-database');
+const database = require('../../database');
 const db = new database.Database();
 
 function getBasicQuery(req, res, next) { 
