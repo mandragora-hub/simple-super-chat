@@ -31,7 +31,7 @@ app.use(express.json()); // for parsing application/json
 app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
 app.get('/', (req, res)=> {
-    res.status.send('Ready')
+    res.status(200).send('Ready')
 })
 
 //Configure route
