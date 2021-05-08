@@ -1,5 +1,8 @@
 // This is a special configuration file.
 // It lets you specify the following options that you would usually pass as arguments to CLI:
+
+require('dotenv').config();    // don't forget to require dotenv
+
 const path = require('path');
 
 module.exports = {
