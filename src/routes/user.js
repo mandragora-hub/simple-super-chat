@@ -20,5 +20,23 @@ module.exports = function (options = {}) {
         })
     })
 
+    router.post('/create', async (req, res, next) => {
+        const room = await db.models.room.findOne({
+            raw: true,
+            where: {
+                uuid: req.body.roomUuid
+            },
+        });
+        if (!room) return next({ code: '404', stack: 'Not found room' })
+        const user = await db.models.user.create({
+            roomId: room.id,
+            username: req.body.username
+        });
+        return res.json({
+            code: 200,
+            data: user
+        })
+    })    
+    
     return router;
 }

@@ -12,7 +12,7 @@ const SocketIOMessage = (server) => {
         socket.join(uuid);
 
         // Listen for new messages
-        socket.on(NEW_CHAT_MESSAGE_EVENT, (data) => { 
+        socket.on(NEW_CHAT_MESSAGE_EVENT, async (data) => {
             io.in(uuid).emit(NEW_CHAT_MESSAGE_EVENT, data);
         });
 

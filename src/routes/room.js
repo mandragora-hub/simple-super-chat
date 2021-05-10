@@ -14,6 +14,7 @@ module.exports = function (options = {}) {
             where: {
                 uuid: req.params.uuid
             },
+            include: db.models.user
         });
         if (!room) return next({ code: '404', stack: 'Not found room' })
         return res.json({
@@ -31,7 +32,22 @@ module.exports = function (options = {}) {
         })
     })
 
-    
+    router.get('/:uuid/messages', async (req, res, next) => {
+        const room = await db.models.room.findOne({
+            where: {
+                uuid: req.params.uuid
+            },
+            include: {
+                model: db.models.message,
+                include: db.models.user
+            }
+        });
+        if (!room) return next({ code: '404', stack: 'Not found room' })
+        return res.json({
+            code: 200,
+            data: room
+        })
+    })
     
     return router;
 }

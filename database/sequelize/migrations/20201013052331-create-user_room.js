@@ -2,7 +2,7 @@
 const { DataTypes } = require('sequelize');
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('message', {
+    await queryInterface.createTable('user_room', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -29,15 +29,6 @@ module.exports = {
           key: 'id'
         }
       },
-      body: {
-        type: DataTypes.STRING(2000),
-        allowNull: false,
-      },
-      type: {
-        type: DataTypes.ENUM('text/plain', 'text/html', 'image/jpg'),
-        defaultValue: 'text/plain',
-        allowNull: false,
-      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
@@ -49,6 +40,6 @@ module.exports = {
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('message');
+    await queryInterface.dropTable('user_room');
   }
 };
